@@ -11,7 +11,9 @@ public class Client {
     public Client(Socket inSocket)
     {
         s=inSocket;
+    }
+    public void cut()
+    {
         
     }
-    
 }
