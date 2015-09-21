@@ -11,6 +11,7 @@ public class Client {
     public Client(Socket inSocket)
     {
         s=inSocket;
+        System.out.println(s);
     }
     public void cut()
     {
