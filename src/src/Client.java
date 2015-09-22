@@ -5,14 +5,12 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.Socket;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class Client {
     private BufferedReader in;
     private DataOutputStream out;
     private Socket s;
-    private boolean cut=false;
+    private boolean cut=false,send=false;
     public Client(Socket inSocket)
     {
         try {
@@ -27,7 +25,10 @@ public class Client {
                         if(cut)break;
                         try {
                             System.out.println(in.readLine());
-                        } catch (IOException ex) {System.out.println(ex);}
+                            send=true;
+                        } catch (IOException ex) {System.out.println("30");
+                            
+                        }
                     }
                 }
             });
@@ -36,13 +37,16 @@ public class Client {
                     while(true)
                     {
                         if(cut)break;
+                        if(send)try {
+                            out.write(new byte[]{'R','\n'});
+                        } catch (IOException ex) {System.out.println("42");}
                     }
                 }
             });
             inT.start();
             outT.start();
         } catch (IOException ex) {
-            System.out.println(ex);
+            System.out.println("49");
         }
     }
     public void cut()

@@ -24,7 +24,7 @@ public class Main {
                         {
                             try {
                                 c[i]=new Client(welcome.accept());
-                            } catch (IOException ex) {System.out.println(ex);}catch(NullPointerException ex){}
+                            } catch (IOException ex) {System.out.println(27);}catch(NullPointerException ex){}
                         }
                     }
                 }
