@@ -14,7 +14,7 @@ public class Main {
         Thread incoming=new Thread(new Runnable() {
             public void run() {
                 try {
-                    welcome=new ServerSocket(666);
+                    welcome=new ServerSocket(25565);
                 } catch (IOException ex) {System.out.println(ex);}
                 while(true)
                 {

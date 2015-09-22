@@ -5,12 +5,15 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.Socket;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Client {
     private BufferedReader in;
     private DataOutputStream out;
     private Socket s;
     private boolean cut=false,send=false;
+    private String inS;
     public Client(Socket inSocket)
     {
         try {
@@ -24,10 +27,13 @@ public class Client {
                     {
                         if(cut)break;
                         try {
-                            System.out.println(in.readLine());
-                            send=true;
-                        } catch (IOException ex) {System.out.println("30");
-                            
+                            inS=in.readLine();
+                            if(inS!=null)
+                            {
+                                System.out.println(inS);
+                                send=true;
+                            }
+                        } catch (IOException ex) {System.out.println(1);
                         }
                     }
                 }
@@ -38,19 +44,23 @@ public class Client {
                     {
                         if(cut)break;
                         if(send)try {
-                            out.write(new byte[]{'R','\n'});
-                        } catch (IOException ex) {System.out.println("42");}
+                            out.write(new byte[]{'G','u','e','s','s',' ','w','h','a','t','\n'});
+                            send=false;
+                        } catch (IOException ex) {System.out.println(2);if(cut)break;}
                     }
                 }
             });
             inT.start();
             outT.start();
         } catch (IOException ex) {
-            System.out.println("49");
+            System.out.println(3);
         }
     }
     public void cut()
     {
         cut=true;
+        try {
+            s.close();
+        } catch (IOException ex) {System.out.println(4);}
     }
 }
