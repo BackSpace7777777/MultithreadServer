@@ -2,6 +2,7 @@ package src;
 
 import java.io.IOException;
 import java.net.ServerSocket;
+import java.net.Socket;
 
 public class Main {
     public static Client c[]=new Client[5];
@@ -26,10 +27,32 @@ public class Main {
                                 c[i]=new Client(welcome.accept());
                             } catch (IOException ex) {System.out.println(27);}catch(NullPointerException ex){}
                         }
+                        for(int cli=0;cli<c.length;cli++)
+                        {
+                            try
+                            {
+                                System.out.println(cli + " " + c[cli].isConnected());
+                            }
+                            catch(NullPointerException ex)
+                            {
+                                System.out.println(cli + " " + false);
+                            }
+                        }
                     }
                 }
             }
         });
         incoming.start();
+    }
+    public static void killClient(Socket sock)
+    {
+        for(int i=0;i<c.length;i++)
+        {
+            if(sock==c[i].returnSocket())
+            {
+                c[i]=null;
+                break;
+            }
+        }
     }
 }

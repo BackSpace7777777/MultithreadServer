@@ -33,7 +33,7 @@ public class Client {
                                 System.out.println(inS);
                                 send=true;
                             }
-                        } catch (IOException ex) {System.out.println(1);
+                        } catch (IOException ex) {System.out.println(1);cut();
                         }
                     }
                 }
@@ -46,7 +46,7 @@ public class Client {
                         if(send)try {
                             out.write(new byte[]{'G','u','e','s','s',' ','w','h','a','t','\n'});
                             send=false;
-                        } catch (IOException ex) {System.out.println(2);if(cut)break;}
+                        } catch (IOException ex) {System.out.println(2);cut();}
                     }
                 }
             });
@@ -56,11 +56,22 @@ public class Client {
             System.out.println(3);
         }
     }
-    public void cut()
+    private void cut()
     {
         cut=true;
         try {
+            in.close();
+            out.close();
             s.close();
+            Main.killClient(s);
         } catch (IOException ex) {System.out.println(4);}
+    }
+    public Socket returnSocket()
+    {
+        return s;
+    }
+    public boolean isConnected()
+    {
+        return s.isConnected();
     }
 }
